@@ -168,6 +168,14 @@ if __name__ == '__main__':
         
         # O uso de to_string() é uma alternativa que não precisa da biblioteca 'tabulate'.
         print(df_enriched[colunas_existentes].head().to_string())
+
+        try:
+            enriched_csv_filename = 'dados_enriquecidos_analise.csv'
+            # Salva o DataFrame com as novas colunas, usando ';' como separador
+            df_enriched.to_csv(enriched_csv_filename, index=False, sep=';', encoding='utf-8-sig')
+            print(f"\nDataFrame enriquecido salvo com sucesso em: {enriched_csv_filename}")
+        except Exception as e:
+            print(f"\nErro ao salvar o CSV enriquecido: {e}")
         
         generate_visualizations(df_enriched)
         
