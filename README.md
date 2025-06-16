@@ -3,13 +3,13 @@
 
 ## 1. Visão Geral do Projeto
 
-Este projeto corresponde à segunda fase de uma análise de mercado focada nos suprimentos para impressoras HP. O grupo buscou aprofundar os resultados obtidos anteriormente, com ênfase em uma coleta de dados mais abrangente e uma análise exploratória mais robusta.
+Este projeto corresponde à segunda fase de uma análise de mercado focada nos suprimentos para impressoras HP. O grupo buscou aprofundar os resultados obtidos anteriormente, com ênfase em uma coleta de dados mais abrangente e uma analise exploratória mais robusta.
 
 Nesta nova etapa, as melhorias se concentraram em dois eixos principais:
 
 - **Expansão e Otimização do Coletor de Dados**: O sistema de web scraping foi reestruturado para funcionar de forma integrada em diferentes plataformas de e-commerce. Abandonou-se o uso de scripts isolados em favor de uma abordagem unificada (`scraping_unificado.py`), com mecanismos de alternância de agentes de navegação e simulação de comportamento humano para mitigar bloqueios automatizados.
 
-- **Enriquecimento e Visualização Analítica**: Após a coleta, os dados foram limpos e enriquecidos com informações estratégicas — como compatibilidade, custo por página e tipo de cartucho —, culminando em um conjunto de gráficos que facilitam a tomada de decisão com base em preço, qualidade e custo-benefício.
+- **Enriquecimento e Visualização Analítica**: Após a coleta, os dados foram limpos e enriquecidos com informações estratégicas, como compatibilidade, custo por pagina e tipo de cartucho, culminando em um conjunto de gráficos que facilitam a tomada de decisão com base em preço, qualidade e custo-benefício.
 
 ## 2. Ferramentas e Bibliotecas Utilizadas
 
@@ -48,7 +48,7 @@ Este script é responsável por toda a parte analítica:
 **1. Instale as dependências:**
 
 ```bash
-pip install -r requirements.txt
+pip install pandas matplotlib seaborn selenium webdriver-manager
 ```
 
 **2. Execute a raspagem de dados:**
@@ -59,7 +59,7 @@ python scraping_unificado.py
 
 O script solicitará quantos produtos devem ser coletados por termo de busca.
 
-**3. Execute a análise e geração dos gráficos:**
+**3. Execute a análise e geração dos graficos:**
 
 ```bash
 python analise.py
@@ -92,11 +92,12 @@ Para permitir a comparação entre métricas com escalas diferentes (ex: número
 ### Gráfico 1: Distribuição de Preços
 
 <!-- placeholder imagem -->
-![grafico_1_preco_vs_compatibilidade](caminho/para/grafico_1_preco_vs_compatibilidade.png)
+![grafico_1_preco_vs_compatibilidade](https://github.com/user-attachments/assets/b0995acb-10d9-4030-8836-13f2cd6a44f2)
+
 
 **Análise:**
 - Cartuchos **originais** apresentam preços mais altos e dispersos.
-- Cartuchos **compatíveis** concentram-se em uma faixa mais estreita e acessível.
+- Cartuchos **compatíveis** concentram-se em uma faixa mais estreita e acessivel.
 - Os preços foram interpretados conforme normalizados, devido à ausência de separador decimal em algumas fontes.
 
 ---
@@ -104,7 +105,8 @@ Para permitir a comparação entre métricas com escalas diferentes (ex: número
 ### Gráfico 2: Preço vs. Nota de Avaliação
 
 <!-- placeholder imagem -->
-![grafico_2_preco_vs_avaliacao](caminho/para/grafico_2_preco_vs_avaliacao.png)
+![grafico_2_preco_vs_avaliacao](https://github.com/user-attachments/assets/85a73e58-9488-414b-a3e4-d130deacd976)
+
 
 **Análise:**
 - Não há uma correlação clara entre preço e satisfação.
@@ -115,7 +117,8 @@ Para permitir a comparação entre métricas com escalas diferentes (ex: número
 ### Gráfico 3: Popularidade vs. Qualidade por Modelo
 
 <!-- placeholder imagem -->
-![grafico_3_popularidade_vs_qualidade](caminho/para/grafico_3_popularidade_vs_qualidade.png)
+![grafico_3_popularidade_vs_qualidade](https://github.com/user-attachments/assets/d4e01760-8a58-416a-b6f8-cb6d1fcbdf69)
+
 
 **Análise:**
 - **Modelo 667** possui nota máxima, mas menor volume de avaliações.
@@ -126,7 +129,8 @@ Para permitir a comparação entre métricas com escalas diferentes (ex: número
 ### Gráfico 4: Top 15 Produtos com Melhor Custo-Benefício
 
 <!-- placeholder imagem -->
-![grafico_4_custo_beneficio](caminho/para/grafico_4_custo_beneficio.png)
+![grafico_4_custo_beneficio](https://github.com/user-attachments/assets/21e2b5c8-ac22-44a8-b2a7-59bde8626c02)
+
 
 **Análise:**
 - Cartuchos **XL (alto rendimento)** figuram entre os produtos com menor custo por página.
