@@ -1,119 +1,137 @@
+
 # Análise de Tintas para Impressoras HP (Fase 2)
 
 ## 1. Visão Geral do Projeto
 
-Este projeto representa a segunda fase de uma análise de mercado, expandindo e aprofundando os insights obtidos em uma entrega anterior. O objetivo desta etapa foi aprimorar tanto a coleta de dados quanto a profundidade da análise, focando no competitivo segmento de suprimentos para impressoras HP.
+Este projeto corresponde à segunda fase de uma análise de mercado focada nos suprimentos para impressoras HP. O grupo buscou aprofundar os resultados obtidos anteriormente, com ênfase em uma coleta de dados mais abrangente e uma análise exploratória mais robusta.
 
-Nesta nova fase, nosso trabalho evoluiu em duas frentes principais:
+Nesta nova etapa, as melhorias se concentraram em dois eixos principais:
 
-- **Expansão da Coleta de Dados**: O sistema de web scraping foi aprimorado para extrair informações de uma plataforma de e-commerce adicional, a Magazine Luiza, integrando seus dados aos já coletados do Mercado Livre. Isso nos permitiu construir uma base de dados mais rica e diversificada.
-- **Análise Aprofundada e Enriquecimento de Dados**: Partindo da base de dados consolidada, desenvolvemos um pipeline de análise completo. Este processo incluiu a limpeza rigorosa dos dados, o enriquecimento com novas colunas de interesse analítico (como tipo de produto, compatibilidade e custo por página) e a geração de visualizações que revelam padrões de preço, qualidade e custo-benefício no mercado.
+- **Expansão e Otimização do Coletor de Dados**: O sistema de web scraping foi reestruturado para funcionar de forma integrada em diferentes plataformas de e-commerce. Abandonou-se o uso de scripts isolados em favor de uma abordagem unificada (`scraping_unificado.py`), com mecanismos de alternância de agentes de navegação e simulação de comportamento humano para mitigar bloqueios automatizados.
+
+- **Enriquecimento e Visualização Analítica**: Após a coleta, os dados foram limpos e enriquecidos com informações estratégicas — como compatibilidade, custo por página e tipo de cartucho —, culminando em um conjunto de gráficos que facilitam a tomada de decisão com base em preço, qualidade e custo-benefício.
 
 ## 2. Ferramentas e Bibliotecas Utilizadas
 
-Para a execução desta segunda fase, consolidamos o uso do ecossistema Python com as seguintes bibliotecas:
+Para viabilizar a coleta e análise de dados, o grupo utilizou as seguintes tecnologias dentro do ecossistema Python:
 
 - **Python 3.12**
-- **Selenium**: Essencial para a automação da navegação e coleta de dados em ambas as plataformas.
-- **Pandas**: Utilizado para toda a manipulação, limpeza e estruturação dos dados.
-- **Matplotlib & Seaborn**: Para a criação e estilização dos gráficos de análise.
-- **webdriver-manager**: Para o gerenciamento automático dos drivers do navegador.
+- **Selenium**: Para navegação automatizada e raspagem de dados.
+- **Pandas**: Manipulação e estruturação da base de dados.
+- **Matplotlib & Seaborn**: Geração de gráficos e visualizações.
+- **webdriver-manager**: Gerenciamento de drivers de navegador.
+- **re (Regex)**: Processamento de texto, especialmente para normalização de preços.
 
-## 3. Estrutura e Execução
+## 3. Estrutura e Execução do Projeto
 
-O projeto evoluiu para uma estrutura de dois scripts principais, projetados para serem executados em sequência:
+A arquitetura do projeto foi consolidada em dois arquivos principais:
 
-### Script 1: `app.py` (Coletor de Dados Multicanal)
+### Script 1: `scraping_unificado.py` (Coletor de Dados Unificado)
 
-Este script, aprimorado nesta fase, realiza o web scraping em múltiplas plataformas. Ele navega, busca e extrai as informações dos produtos, consolidando os resultados em um único arquivo CSV, `ecommerce_produtos_coletados.csv`.
+Este script realiza o scraping nas plataformas Mercado Livre e Magazine Luiza. Ele executa a coleta de forma sequencial, alternando automaticamente os parâmetros de navegação para simular usuários distintos (user-agents e tempos de espera aleatórios).
 
-### Script 2: `analise.py` (Pipeline de Análise e Visualização)
+O resultado da coleta é salvo em um arquivo CSV padronizado:  
+📄 `dados_enriquecidos_analise.csv`
 
-Este novo script é o coração da segunda entrega. Ele lê o arquivo CSV gerado e executa todo o pipeline de análise:
+### Script 2: `analise.py` (Análise e Visualização de Dados)
 
-- Limpeza e padronização dos dados de ambas as fontes.
-- Enriquecimento da base com colunas derivadas de alto valor analítico.
-- Geração de quatro visualizações de dados para extrair conclusões de negócio.
+Este script é responsável por toda a parte analítica:
 
-### Como Executar o Projeto
+- Leitura e padronização do CSV gerado na etapa anterior;
+- Criação de colunas derivadas de valor analítico (ex: custo por página, tipo de cartucho, compatibilidade);
+- Geração de quatro gráficos com foco em padrões de consumo, preço, avaliação e custo-benefício.
 
-Instale as dependências:
+---
 
-![image](https://github.com/user-attachments/assets/4fa2c27a-7aba-4bae-b7c5-b168d8793c8c)
+### Como Usar o Projeto
 
+**1. Instale as dependências:**
 
-Execute o script de coleta de dados:
+```bash
+pip install -r requirements.txt
+```
 
-![image](https://github.com/user-attachments/assets/e5b79e5c-d357-4914-bd4d-c56b5e47e151)
+**2. Execute a raspagem de dados:**
 
+```bash
+python scraping_unificado.py
+```
 
-Após a conclusão, execute o script de análise:
+O script solicitará quantos produtos devem ser coletados por termo de busca.
 
-![image](https://github.com/user-attachments/assets/e3d98076-10e1-47e7-bd7a-4dd711bb9ed3)
+**3. Execute a análise e geração dos gráficos:**
 
+```bash
+python analise.py
+```
 
-## 4. Principais Desafios e Soluções (Fase 2)
+Os gráficos serão salvos automaticamente na pasta do projeto.
 
-### 4.1. Defesas Anti-Bot e a Mudança de Estratégia
+---
 
-Nosso plano inicial era integrar a KaBuM! como segunda fonte de dados. No entanto, nos deparamos com defesas anti-bot avançadas que impediam a coleta de forma consistente. Após explorar diversas estratégias técnicas, reconhecemos que a complexidade para contornar essas barreiras excedia o escopo e o cronograma do projeto.
+## 4. Principais Desafios e Soluções
 
-**Solução:** Tomamos a decisão ágil de pivotar para a Magazine Luiza. A plataforma se mostrou mais receptiva à automação, permitindo-nos focar no objetivo principal: a análise integrada dos dados.
+### 4.1. Mecanismos Anti-Bot e Estratégias de Mitigação
 
-### 4.2. Visualização de Métricas com Escalas Diferentes
+A intenção inicial era incluir a plataforma KaBuM! no escopo da coleta. No entanto, as barreiras automatizadas de segurança impediram o acesso contínuo às páginas de produto.
 
-Um desafio técnico surgiu ao tentar comparar visualmente a **Popularidade** (milhares de avaliações) com a **Qualidade** (nota de 1 a 5). A discrepância de escalas tornava os gráficos combinados inúteis.
+**Solução:** A equipe optou por redirecionar os esforços para a Magazine Luiza e aprimorar a simulação de comportamento humano por meio de:
 
-**Solução:** Aplicamos a técnica de **Normalização Min-Max**, reescalando ambas as métricas para o intervalo comum (0 a 1), permitindo uma comparação justa entre as variáveis.
+- Alternância de **user-agents**;
+- Rolagens suaves e movimentos simulados do mouse;
+- Tempos de espera randômicos entre as ações.
+
+### 4.2. Comparação de Métricas com Escalas Diferentes
+
+Para permitir a comparação entre métricas com escalas diferentes (ex: número de avaliações vs. nota média), foi aplicada a **normalização Min-Max**, reescalando todos os valores entre 0 e 1.
+
+---
 
 ## 5. Análise dos Resultados
 
 ### Gráfico 1: Distribuição de Preços
 
-![grafico_1_preco_vs_compatibilidade](https://github.com/user-attachments/assets/73c4bc90-e01f-4d5d-9438-add23a7b2828)
-
+<!-- placeholder imagem -->
+![grafico_1_preco_vs_compatibilidade](caminho/para/grafico_1_preco_vs_compatibilidade.png)
 
 **Análise:**
-
-- O gráfico confirma a estratégia de segmentação do mercado.
-- **Originais**: Possuem preço mediano e dispersão visivelmente maiores.
-- **Compatíveis**: Alternativa de baixo custo, com preços mais concentrados.
+- Cartuchos **originais** apresentam preços mais altos e dispersos.
+- Cartuchos **compatíveis** concentram-se em uma faixa mais estreita e acessível.
+- Os preços foram interpretados conforme normalizados, devido à ausência de separador decimal em algumas fontes.
 
 ---
 
-### Gráfico 2: Relação entre Preço e Nota de Avaliação
+### Gráfico 2: Preço vs. Nota de Avaliação
 
-![grafico_2_preco_vs_avaliacao](https://github.com/user-attachments/assets/cb844ced-f5d0-4603-8cb1-8bf8280e691e)
-
+<!-- placeholder imagem -->
+![grafico_2_preco_vs_avaliacao](caminho/para/grafico_2_preco_vs_avaliacao.png)
 
 **Análise:**
-
-- Não há correlação clara entre preço e satisfação.
-- Produtos em todas as faixas de preço alcançam notas altas (4.5 a 5.0).
-- Qualidade não está necessariamente ligada a preço premium.
+- Não há uma correlação clara entre preço e satisfação.
+- Vários produtos acessíveis possuem notas elevadas (acima de 4.5).
 
 ---
 
 ### Gráfico 3: Popularidade vs. Qualidade por Modelo
 
-![grafico_3_popularidade_vs_qualidade](https://github.com/user-attachments/assets/58da16b7-17e0-44a5-a05b-da39dc217063)
-
+<!-- placeholder imagem -->
+![grafico_3_popularidade_vs_qualidade](caminho/para/grafico_3_popularidade_vs_qualidade.png)
 
 **Análise:**
-
-- **Modelo 664**: Líder em popularidade com qualidade excelente.
-- **Modelo 667**: Nota máxima de qualidade, mas menor popularidade.
-
-**Insight Estratégico:** Há uma oportunidade em entender por que o modelo 667, o mais bem avaliado, não é o mais vendido.
+- **Modelo 667** possui nota máxima, mas menor volume de avaliações.
+- **Modelo 664** lidera em popularidade com qualidade igualmente elevada.
 
 ---
 
-### Gráfico 4: Análise de Custo-Benefício
+### Gráfico 4: Top 15 Produtos com Melhor Custo-Benefício
 
-![grafico_4_custo_beneficio](https://github.com/user-attachments/assets/257907a1-b168-4112-9ce1-e06850838427)
-
+<!-- placeholder imagem -->
+![grafico_4_custo_beneficio](caminho/para/grafico_4_custo_beneficio.png)
 
 **Análise:**
+- Cartuchos **XL (alto rendimento)** figuram entre os produtos com menor custo por página.
+- A combinação entre avaliação, preço e rendimento revelou oportunidades de melhor escolha para o consumidor final.
 
-- **Cartuchos XL** dominam o custo-benefício.
-- Apesar de mais caros, são mais econômicos a longo prazo (baixo custo por página).
+---
+
+Este projeto reforça a importância de decisões baseadas em dados reais de mercado, demonstrando como a coleta automatizada, aliada à análise visual, pode contribuir para a compreensão de dinâmicas de consumo em nichos altamente competitivos.
