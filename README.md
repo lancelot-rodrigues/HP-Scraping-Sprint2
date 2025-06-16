@@ -137,5 +137,3 @@ Para permitir a comparação entre métricas com escalas diferentes (ex: número
 - A combinação entre avaliação, preço e rendimento revelou oportunidades de melhor escolha para o consumidor final.
 
 ---
-
-Este projeto reforça a importância de decisões baseadas em dados reais de mercado, demonstrando como a coleta automatizada, aliada à análise visual, pode contribuir para a compreensão de dinâmicas de consumo em nichos altamente competitivos.
