@@ -1,6 +1,5 @@
 
-# Análise de Tintas para Impressoras HP (Fase 2)
-
+# Análise de Tintas para Impressoras HP 
 ## 1. Visão Geral do Projeto
 
 Este projeto corresponde à segunda fase de uma análise de mercado focada nos suprimentos para impressoras HP. O grupo buscou aprofundar os resultados obtidos anteriormente, com ênfase em uma coleta de dados mais abrangente e uma analise exploratória mais robusta.
